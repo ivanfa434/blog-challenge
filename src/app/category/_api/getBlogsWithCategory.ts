@@ -1,15 +1,11 @@
 import { Category } from "@/types/category";
+import axios from "axios";
 
-import { notFound } from "next/navigation";
-import { cache } from "react";
-
-export const getBlogsWithCategory = cache(async (category: string) => {
-  const response = await fetch(
-    `https://mediateoatmeal-us.backendless.app/api/data/category?where=%60title%60%20%3D%20'${category}'&loadRelations=blogs`
+const getBlogsWithCategory = async (slug: string) => {
+  const { data } = await axios.get<Category[]>(
+    `https://mediateoatmeal-us.backendless.app/api/data/category?where=%60slug%60%20%3D%20'${slug}'&loadRelations=blogs`
   );
-  const blogs: Category[] = await response.json();
-  if (!blogs.length) {
-    return notFound();
-  }
-  return blogs;
-});
+  return data[0];
+};
+
+export default getBlogsWithCategory;

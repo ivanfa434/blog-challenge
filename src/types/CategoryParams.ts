@@ -1,3 +1,3 @@
-export interface CategoryParams {
+export type CategoryParams = {
     slug: string;
-  }
+  };

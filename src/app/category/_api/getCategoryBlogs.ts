@@ -1,12 +1,26 @@
+// src/app/category/_api/getCategoryBlogs.ts
 import { Category } from "@/types/category";
+import { notFound } from "next/navigation";
+import { cache } from "react";
 
-const getCategoryBlogs = async () => {
-  const response = await fetch(
-    `https://fittingjump-us.backendless.app/api/data/category?loadRelations=blogs`
-  );
-  const category: Category[] = await response.json();
+export const getAllCategories = cache(async () => {
+  const apiUrl = `https://fittingjump-us.backendless.app/api/data/category?loadRelations=blogs`;
 
-  return category;
-};
+  const response = await fetch(apiUrl);
 
-export default getCategoryBlogs;
+  if (!response.ok) {
+    console.error(`API request failed with status: ${response.status}`);
+    return notFound();
+  }
+
+  const data = await response.json();
+  console.log("API Response:", data); // Log respons lengkap
+
+  if (!data || data.length === 0) { //perbaikan pada baris ini
+    console.error("No category data found.");
+    return notFound();
+  }
+
+  const categories: Category[] = data; //perbaikan pada baris ini
+  return categories;
+});

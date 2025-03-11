@@ -1,21 +1,21 @@
 // CategoryBody.jsx
 import { FC } from "react";
 import Markdown from "@/components/Markdown";
-import getCategoryWithBlogs from "../../_api/getCategoryBlogs";
-import { Separator } from "@/components/ui/separator";
+import { getCategoryWithBlogs } from "../../_api/getCategoryWithBlogs";
+import { Category } from "@/types/category"; // Import Category type
 
 interface CategoryBodyProps {
   slug: string;
 }
 
 const CategoryBody: FC<CategoryBodyProps> = async ({ slug }) => {
+  const categories: Category[] = await getCategoryWithBlogs(slug); // Provide slug argument
 
-  const blogs = await getCategoryWithBlogs();
-
-  const filteredBlogs = blogs.filter(
-    (blog) => blog.slug === slug 
+  const filteredCategories = categories.filter(
+    (category) => category.slug === slug
   );
-  if (filteredBlogs.length === 0) {
+
+  if (filteredCategories.length === 0) {
     return (
       <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-lg">
         <h3 className="text-xl font-medium text-gray-600 dark:text-gray-300">
@@ -25,7 +25,7 @@ const CategoryBody: FC<CategoryBodyProps> = async ({ slug }) => {
     );
   }
 
-  const blog = filteredBlogs[0];
+  const category = filteredCategories[0];
 
   return (
     <div className="relative">
@@ -37,7 +37,7 @@ const CategoryBody: FC<CategoryBodyProps> = async ({ slug }) => {
                      dark:prose-a:text-blue-400 dark:hover:prose-a:text-blue-300
                      prose-img:rounded-xl prose-img:shadow-md"
       >
-        <Markdown content={blog.description} />
+        <Markdown content={category.description} />
       </div>
     </div>
   );

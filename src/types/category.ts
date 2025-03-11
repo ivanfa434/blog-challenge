@@ -1,3 +1,4 @@
+// types/category.ts
 import { Blog } from "./blog";
 
 export interface Category {
@@ -6,6 +7,6 @@ export interface Category {
   slug: string;
   objectId: string;
   image: string;
-  blogs: Blog;
+  blogs: Blog[];
   created: number;
 }
