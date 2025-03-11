@@ -1,8 +1,8 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   return (
@@ -14,6 +14,7 @@ export function HeroSection() {
           fill
           className="object-cover"
           priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-background/30" />
       </div>
@@ -24,7 +25,8 @@ export function HeroSection() {
             Insights and Inspiration for Modern Developers
           </h1>
           <p className="text-lg text-muted-foreground md:text-xl">
-            Discover the latest trends, tutorials, and best practices in web development, design, and technology.
+            Discover the latest trends, tutorials, and best practices in web
+            development, design, and technology.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button size="lg" asChild>
@@ -40,6 +42,5 @@ export function HeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-
